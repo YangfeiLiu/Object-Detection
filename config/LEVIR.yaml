@@ -1,0 +1,33 @@
+COMMON:
+  img_path: /workspace/lyf/detect/LEVIR
+  log_path: /workspace/lyf/detect/LEVIR/log
+  img_channels: 3  #
+  num_classes: 3  #
+  evaluate_interval: 5  # 验证间隔epoch
+  xyxy: True
+  class_first: True  #   c,x1,y1,x2,y2--->True   x1,y1,x2,y2,c--->False
+  anchors: [ [ [ 21, 49 ], [ 31, 34 ], [ 48, 46 ] ],
+             [ [ 115, 42 ], [ 65, 74 ], [ 97, 92 ] ],
+             [ [ 120, 130 ], [ 169,151 ], [ 233,236 ] ] ]
+  ignore_threshold: 0.5  #
+  lambda_coord: 5.
+  lambda_noobj: 0.5
+TRAIN:
+  img_size: [ 416, 416 ]
+  epoches: 100
+  max_objects: 70
+  batch_size: 64
+  num_workers: 4
+  gpu_ids: [0]
+  lr: 3e-4
+  weight_decay: 4e-5
+  save_model_path: /workspace/lyf/detect/LEVIR
+TEST:
+  img_size: [ 576, 576 ]
+  pre_train_model: /workspace/lyf/detect/LEVIR/yolo1.pth
+  classes: [ 'airplane', 'ship', 'oilpot' ]
+  colors: [ [ 255, 0, 0 ], [ 0, 255, 0 ], [ 0, 0, 255 ] ]
+  batch_size: 16
+  save_result: result
+  conf_thres: 0.6
+  nms_thres: 0.1

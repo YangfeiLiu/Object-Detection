@@ -1,0 +1,39 @@
+COMMON:
+  img_path: /workspace/lyf/detect/DIOR
+  log_path: /workspace/lyf/detect/DIOR/log
+  img_channels: 3  #
+  num_classes: 20  #
+  evaluate_interval: 2  # 验证间隔epoch
+  label_start: 0  # 标签从0开始
+  xyxy: True
+  class_first: True  #   c,x1,y1,x2,y2--->True   x1,y1,x2,y2,c--->False
+  anchors: [ [ [ 14, 15 ], [ 44, 25 ], [ 25, 52 ] ],
+             [ [ 74, 75 ], [ 108, 161 ], [ 208, 188 ] ],
+             [ [ 231, 160 ], [ 225, 175 ], [ 226, 218 ] ] ]
+  ignore_threshold: 0.5  #
+  lambda_coord: 5.
+  lambda_noobj: 0.5
+TRAIN:
+  img_size: [ 608, 608 ]
+  epoches: 200
+  max_objects: 70
+  batch_size: 32
+  num_workers: 2
+  gpu_ids: [0]
+  lr: 3e-4
+  weight_decay: 4e-5
+  save_model_path: /workspace/lyf/detect/DIOR
+  pre_train: True
+TEST:
+  img_size: [ 608, 608 ]
+  pre_train_model: /workspace/lyf/detect/DIOR/yolov3.pth
+  classes: [ 'airport', 'baseballfield', 'groundtrackfield', 'tenniscourt', 'windmill', 'vehicle', 'overpass',
+             'Expressway-toll-station', 'storagetank', 'harbor', 'ship', 'airplane', 'dam', 'golffield', 'stadium',
+             'Expressway-Service-area', 'bridge', 'chimney', 'trainstation', 'basketballcourt' ]
+  colors: [ [ 255, 0, 0 ], [ 0, 255, 0 ], [ 0, 0, 255 ], [ 255, 0, 255], [ 255, 255, 0], [ 0, 255, 255], [ 128, 255, 255],
+            [ 128, 128, 255], [ 192, 250, 160], [250, 192, 0], [78, 16, 94], [254, 192, 194], [253, 199, 50], [156, 153, 255],
+            [190, 226, 38], [150, 150, 50], [255, 128, 255], [192, 255, 255], [160, 50, 255], [72, 26, 255]]
+  batch_size: 32
+  save_result: result1
+  conf_thres: 0.7
+  nms_thres: 0.2

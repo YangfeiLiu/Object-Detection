@@ -1,0 +1,35 @@
+COMMON:
+  img_path: /workspace/lyf/detect/NWPU VHR-10 dataset
+  log_path: /workspace/lyf/detect/NWPU VHR-10 dataset/log
+  img_channels: 3  # 输入通道数
+  num_classes: 10  # 数据集类别数
+  evaluate_interval: 5  # 验证间隔epoch
+  xyxy: True
+  class_first: False  # 标注标签格式为HBB，每个box的类别是否是第一个   c,x1,y1,x2,y2--->True   x1,y1,x2,y2,c--->False
+  anchors: [ [ [ 47, 31 ], [ 36, 49 ], [ 62, 50 ] ],
+             [ [ 49, 76 ], [ 77, 72 ], [ 137, 57 ] ],
+             [ [ 99, 102 ], [ 187, 144 ], [ 255, 17 ] ] ]
+  ignore_threshold: 0.5  # 根据anchor和gt的iou，确定哪个格子有目标，iou大于阈值就表明有目标
+  lambda_coord: 5.
+  lambda_noobj: 0.5
+TRAIN:
+  img_size: [ 416, 416 ]
+  epoches: 100
+  max_objects: 50
+  batch_size: 10
+  num_workers: 4
+  gpu_ids: [0]
+  lr: 3e-3
+  weight_decay: 4e-5
+  save_model_path: /workspace/lyf/detect/NWPU VHR-10 dataset/
+TEST:
+  img_size: [ 576, 576 ]
+  pre_train_model: /workspace/lyf/detect/NWPU VHR-10 dataset/yolo.pth
+  classes: [ 'airplane', 'ship', 'storage tank', 'baseball diamond', 'tennis court', 'basketball court',
+             'ground track field', 'harbor', 'bridge', 'vehicle' ]
+  colors: [ [ 0, 0, 255 ], [ 0, 255, 0 ], [ 255, 0, 0 ], [ 0, 255, 255 ], [ 255, 0, 255 ], [ 255, 255, 0 ], [ 128, 128, 128 ],
+            [ 150, 128, 249 ], [ 128, 255, 128 ], [ 255, 128, 0 ] ]
+  batch_size: 16
+  save_result: result
+  conf_thres: 0.4
+  nms_thres: 0.15
